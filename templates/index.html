@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Generator</title>
+</head>
+<body>
+    <h1>Receipt Generator</h1>
+    <form action="/receipt" method="POST">
+        <label for="num_items">How many items?</label>
+        <input type="number" id="num_items" name="num_items" required>
+        <br><br>
+        
+        <div id="item_inputs">
+            <!-- This is where dynamic inputs will appear -->
+        </div>
+        
+        <button type="submit">Generate Receipt</button>
+    </form>
+
+    <script>
+        const numItemsInput = document.getElementById('num_items');
+        const itemInputsDiv = document.getElementById('item_inputs');
+
+        numItemsInput.addEventListener('input', function () {
+            itemInputsDiv.innerHTML = ''; // Clear previous inputs
+
+            for (let i = 1; i <= numItemsInput.value; i++) {
+                itemInputsDiv.innerHTML += `
+                    <h3>Item ${i}</h3>
+                    <label for="item_name_${i}">Name:</label>
+                    <input type="text" id="item_name_${i}" name="item_name_${i}" required><br>
+                    <label for="quantity_${i}">Quantity:</label>
+                    <input type="number" id="quantity_${i}" name="quantity_${i}" required><br>
+                    <label for="price_${i}">Price:</label>
+                    <input type="number" step="0.01" id="price_${i}" name="price_${i}" required><br><br>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
